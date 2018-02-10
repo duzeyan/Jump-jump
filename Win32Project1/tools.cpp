@@ -1,8 +1,8 @@
 #include"tools.h"
 #include<string.h>
 
-#define SAVE_PATH_PC "F:\\tmpData\\jumpScreenCap.png"  //PC上临时存储地址
-#define SAVE_PATH_PHONE "/sdcard/jumpScreenCap.png"   //安卓手机中临时存储地址
+#define SAVE_PATH_PC "F:\\tmpData\\jumpScreenCap.png"  //PC涓婁复鏃跺瓨鍌ㄥ湴鍧�
+#define SAVE_PATH_PHONE "/sdcard/jumpScreenCap.png"   //瀹夊崜鎵嬫満涓复鏃跺瓨鍌ㄥ湴鍧�
 #define CMD_SAVE   "adb shell screencap -p "
 #define CMD_PULL   "adb pull "
 #define CMD_PUSH   "adb pull "
@@ -33,15 +33,13 @@ void PreProcess(Mat & srcimg, Mat & cutImg)
 	cutImg=outImg(ROI);
 }
 
+
 void PushScreen(int second)
 {
 	char cmdstr[255];
-	if (rand() % 2) {
-		sprintf(cmdstr, "adb shell input swipe 50 250 55 250 %d", second);
-	}
-	else {
-		sprintf(cmdstr, "adb shell input swipe 100 120 100 125 %d", second);
-	}
+	int touchX = rand() % 80 + 222;
+	int touchY = rand() % 85 + 333; 
+	sprintf(cmdstr, "adb shell input swipe %d %d %d %d %d", touchX, touchY, touchX+1, touchY+1,second);
 	system(cmdstr);
 }
 
